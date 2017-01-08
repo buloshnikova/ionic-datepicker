@@ -62,6 +62,13 @@ angular.module('ionic-datepicker.provider', [])
         refreshDateList($scope.currentDate);
       };
 
+      //swipe gestures
+      $scope.onRightSwipe = function () {
+        if (($scope.firstDayEpoch - 86400000) > $scope.fromDate) {
+          $scope.prevMonth();
+        }
+      };
+
       //Date selected
       $scope.dateSelected = function (selectedDate) {
         if (!selectedDate || Object.keys(selectedDate).length === 0) return;
