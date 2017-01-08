@@ -41,13 +41,15 @@ angular.module('ionic-datepicker.provider', [])
 
       //Previous month
       $scope.prevMonth = function () {
-        if ($scope.currentDate.getMonth() === 1) {
-          $scope.currentDate.setFullYear($scope.currentDate.getFullYear());
-        }
-        $scope.currentDate.setMonth($scope.currentDate.getMonth() - 1);
-        $scope.data.currentMonth = $scope.mainObj.monthsList[$scope.currentDate.getMonth()];
-        $scope.data.currentYear = $scope.currentDate.getFullYear();
-        refreshDateList($scope.currentDate);
+          if (($scope.firstDayEpoch - 86400000) > $scope.fromDate) {
+              if ($scope.currentDate.getMonth() === 1) {
+                  $scope.currentDate.setFullYear($scope.currentDate.getFullYear());
+              }
+              $scope.currentDate.setMonth($scope.currentDate.getMonth() - 1);
+              $scope.data.currentMonth = $scope.mainObj.monthsList[$scope.currentDate.getMonth()];
+              $scope.data.currentYear = $scope.currentDate.getFullYear();
+              refreshDateList($scope.currentDate);
+          }
       };
 
       //Next month
@@ -60,13 +62,6 @@ angular.module('ionic-datepicker.provider', [])
         $scope.data.currentMonth = $scope.mainObj.monthsList[$scope.currentDate.getMonth()];
         $scope.data.currentYear = $scope.currentDate.getFullYear();
         refreshDateList($scope.currentDate);
-      };
-
-      //swipe gestures
-      $scope.onRightSwipe = function () {
-        if (($scope.firstDayEpoch - 86400000) > $scope.fromDate) {
-          $scope.prevMonth();
-        }
       };
 
       //Date selected
